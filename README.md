@@ -60,7 +60,7 @@ Este script contiene las definiciones de las tablas necesarias para el sistema, 
 * `Usuarios`: Almacena la información de los usuarios del sistema.
 * `Maquiladores`: Almacena la información de los maquiladores.
 * `Productos`: Almacena la información de los productos.
-* `CatalogoEstatusCliente`, `CatalogoEstatusOrdenCompra`, `CatalogoEstatusCorte`, `CatalogoEstatusInventario`, `CatalogoEstatusOrdenEntradaSalida`, `CatalogoEstatusUsuario`, `CatalogoEstatusMaquilador`, `CatalogoEstatusProducto`, `CatalogoTiposUsuario`, `CatalogoTallas`, `CatalogoColores`: Tablas de catálogos para los diferentes estados y tipos utilizados en el sistema.
+* `EstatusCliente`, `EstatusOrdenCompra`, `EstatusCorte`, `EstatusInventario`, `EstatusOrdenEntradaSalida`, `EstatusUsuario`, `EstatusMaquilador`, `EstatusProducto`, `TiposUsuario`, `Tallas`, `Colores`: Tablas de catálogos para los diferentes estados y tipos utilizados en el sistema.
 
 ### dml.sql
 

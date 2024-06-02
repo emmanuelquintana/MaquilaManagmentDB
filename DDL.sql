@@ -85,87 +85,100 @@ CREATE TABLE Productos (
     estatus_producto_id BIGINT
 );
 
-CREATE TABLE CatalogoEstatusCliente (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE Bitacora (
+    id SERIAL PRIMARY KEY,
+    uuid UUID NOT NULL UNIQUE,
+    entidad VARCHAR(255) NOT NULL,
+    entidad_id INT NOT NULL,
+    accion VARCHAR(255) NOT NULL,
+    detalle JSONB,
+    fecha TIMESTAMP NOT NULL,
+    usuario_id INT NOT NULL,
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES Usuarios(id)
 );
 
-CREATE TABLE CatalogoEstatusOrdenCompra (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+-- Creación de tablas base
+CREATE TABLE EstatusCliente (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoEstatusCorte (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE EstatusMaquilador (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoEstatusInventario (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE EstatusOrdenCompra (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoEstatusOrdenEntradaSalida (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE EstatusProducto (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoEstatusUsuario (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE Colores (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoEstatusMaquilador (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE Tallas (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoEstatusProducto (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE TiposUsuario (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoTiposUsuario (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE EstatusUsuario (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoTallas (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE EstatusCorte (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE CatalogoColores (
-    id BIGSERIAL PRIMARY KEY,
-    descripcion VARCHAR(50) NOT NULL
+CREATE TABLE EstatusInventario (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE EstatusOrdenEntradaSalida (
+    id SERIAL PRIMARY KEY,
+    descripcion VARCHAR(255) NOT NULL
 );
 
 -- Agregar llaves foráneas
 ALTER TABLE Clientes
 ADD CONSTRAINT fk_estatus_cliente
-FOREIGN KEY (estatus_cliente_id) REFERENCES CatalogoEstatusCliente(id);
+FOREIGN KEY (estatus_cliente_id) REFERENCES EstatusCliente(id);
 
 ALTER TABLE OrdenesCompra
 ADD CONSTRAINT fk_cliente_id
 FOREIGN KEY (cliente_id) REFERENCES Clientes(id),
 ADD CONSTRAINT fk_estatus_orden_compra
-FOREIGN KEY (estatus_orden_compra_id) REFERENCES CatalogoEstatusOrdenCompra(id);
+FOREIGN KEY (estatus_orden_compra_id) REFERENCES EstatusOrdenCompra(id);
 
 ALTER TABLE Cortes
 ADD CONSTRAINT fk_maquilador_id
 FOREIGN KEY (maquilador_id) REFERENCES Maquiladores(id),
 ADD CONSTRAINT fk_talla_id
-FOREIGN KEY (talla_id) REFERENCES CatalogoTallas(id),
+FOREIGN KEY (talla_id) REFERENCES Tallas(id),
 ADD CONSTRAINT fk_color_id
-FOREIGN KEY (color_id) REFERENCES CatalogoColores(id),
+FOREIGN KEY (color_id) REFERENCES Colores(id),
 ADD CONSTRAINT fk_estatus_corte
-FOREIGN KEY (estatus_corte_id) REFERENCES CatalogoEstatusCorte(id);
+FOREIGN KEY (estatus_corte_id) REFERENCES EstatusCorte(id);
 
 ALTER TABLE Inventario
 ADD CONSTRAINT fk_producto_id
 FOREIGN KEY (producto_id) REFERENCES Productos(id),
 ADD CONSTRAINT fk_estatus_inventario
-FOREIGN KEY (estatus_inventario_id) REFERENCES CatalogoEstatusInventario(id);
+FOREIGN KEY (estatus_inventario_id) REFERENCES EstatusInventario(id);
 
 ALTER TABLE OrdenesEntradaSalida
 ADD CONSTRAINT fk_maquilador_id_entrada_salida
@@ -173,25 +186,25 @@ FOREIGN KEY (maquilador_id) REFERENCES Maquiladores(id),
 ADD CONSTRAINT fk_usuario_id
 FOREIGN KEY (usuario_id) REFERENCES Usuarios(id),
 ADD CONSTRAINT fk_estatus_orden_entrada_salida
-FOREIGN KEY (estatus_orden_entrada_salida_id) REFERENCES CatalogoEstatusOrdenEntradaSalida(id);
+FOREIGN KEY (estatus_orden_entrada_salida_id) REFERENCES EstatusOrdenEntradaSalida(id);
 
 ALTER TABLE Usuarios
 ADD CONSTRAINT fk_tipo_usuario
-FOREIGN KEY (tipo_usuario_id) REFERENCES CatalogoTiposUsuario(id),
+FOREIGN KEY (tipo_usuario_id) REFERENCES TiposUsuario(id),
 ADD CONSTRAINT fk_estatus_usuario
-FOREIGN KEY (estatus_usuario_id) REFERENCES CatalogoEstatusUsuario(id);
+FOREIGN KEY (estatus_usuario_id) REFERENCES EstatusUsuario(id);
 
 ALTER TABLE Maquiladores
 ADD CONSTRAINT fk_estatus_maquilador
-FOREIGN KEY (estatus_maquilador_id) REFERENCES CatalogoEstatusMaquilador(id);
+FOREIGN KEY (estatus_maquilador_id) REFERENCES EstatusMaquilador(id);
 
 ALTER TABLE Productos
 ADD CONSTRAINT fk_talla_producto
-FOREIGN KEY (talla_id) REFERENCES CatalogoTallas(id),
+FOREIGN KEY (talla_id) REFERENCES Tallas(id),
 ADD CONSTRAINT fk_color_producto
-FOREIGN KEY (color_id) REFERENCES CatalogoColores(id),
+FOREIGN KEY (color_id) REFERENCES Colores(id),
 ADD CONSTRAINT fk_estatus_producto
-FOREIGN KEY (estatus_producto_id) REFERENCES CatalogoEstatusProducto(id);
+FOREIGN KEY (estatus_producto_id) REFERENCES EstatusProducto(id);
 
 -- Indices --
 CREATE INDEX idx_clientes_uuid ON Clientes (uuid);
@@ -232,3 +245,5 @@ CREATE INDEX idx_productos_nombre ON Productos (nombre);
 CREATE INDEX idx_productos_talla_id ON Productos (talla_id);
 CREATE INDEX idx_productos_color_id ON Productos (color_id);
 CREATE INDEX idx_productos_estatus_producto_id ON Productos (estatus_producto_id);
+
+CREATE INDEX idx_bitacora_uuid ON Bitacora(uuid);
