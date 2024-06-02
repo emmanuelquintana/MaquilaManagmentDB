@@ -192,3 +192,43 @@ ADD CONSTRAINT fk_color_producto
 FOREIGN KEY (color_id) REFERENCES CatalogoColores(id),
 ADD CONSTRAINT fk_estatus_producto
 FOREIGN KEY (estatus_producto_id) REFERENCES CatalogoEstatusProducto(id);
+
+-- Indices --
+CREATE INDEX idx_clientes_uuid ON Clientes (uuid);
+CREATE INDEX idx_clientes_nombre_responsable ON Clientes (nombre_responsable);
+CREATE INDEX idx_clientes_correo_electronico ON Clientes (correo_electronico);
+CREATE INDEX idx_clientes_estatus_cliente_id ON Clientes (estatus_cliente_id);
+
+CREATE INDEX idx_ordenes_compra_uuid ON OrdenesCompra (uuid);
+CREATE INDEX idx_ordenes_compra_cliente_id ON OrdenesCompra (cliente_id);
+CREATE INDEX idx_ordenes_compra_estatus_orden_compra_id ON OrdenesCompra (estatus_orden_compra_id);
+
+CREATE INDEX idx_cortes_uuid ON Cortes (uuid);
+CREATE INDEX idx_cortes_maquilador_id ON Cortes (maquilador_id);
+CREATE INDEX idx_cortes_talla_id ON Cortes (talla_id);
+CREATE INDEX idx_cortes_color_id ON Cortes (color_id);
+CREATE INDEX idx_cortes_estatus_corte_id ON Cortes (estatus_corte_id);
+
+CREATE INDEX idx_inventario_uuid ON Inventario (uuid);
+CREATE INDEX idx_inventario_producto_id ON Inventario (producto_id);
+CREATE INDEX idx_inventario_estatus_inventario_id ON Inventario (estatus_inventario_id);
+
+CREATE INDEX idx_ordenes_entrada_salida_uuid ON OrdenesEntradaSalida (uuid);
+CREATE INDEX idx_ordenes_entrada_salida_maquilador_id ON OrdenesEntradaSalida (maquilador_id);
+CREATE INDEX idx_ordenes_entrada_salida_usuario_id ON OrdenesEntradaSalida (usuario_id);
+CREATE INDEX idx_ordenes_entrada_salida_estatus_orden_entrada_salida_id ON OrdenesEntradaSalida (estatus_orden_entrada_salida_id);
+
+CREATE INDEX idx_usuarios_uuid ON Usuarios (uuid);
+CREATE INDEX idx_usuarios_correo_electronico ON Usuarios (correo_electronico);
+CREATE INDEX idx_usuarios_tipo_usuario_id ON Usuarios (tipo_usuario_id);
+CREATE INDEX idx_usuarios_estatus_usuario_id ON Usuarios (estatus_usuario_id);
+
+CREATE INDEX idx_maquiladores_uuid ON Maquiladores (uuid);
+CREATE INDEX idx_maquiladores_nombre ON Maquiladores (nombre);
+CREATE INDEX idx_maquiladores_estatus_maquilador_id ON Maquiladores (estatus_maquilador_id);
+
+CREATE INDEX idx_productos_uuid ON Productos (uuid);
+CREATE INDEX idx_productos_nombre ON Productos (nombre);
+CREATE INDEX idx_productos_talla_id ON Productos (talla_id);
+CREATE INDEX idx_productos_color_id ON Productos (color_id);
+CREATE INDEX idx_productos_estatus_producto_id ON Productos (estatus_producto_id);
